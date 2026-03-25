@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+</head>
+<body>
+    <h1>Pizza Menu</h1>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pizza : ${pizzas}">
+            <td th:text="${pizza.name}"></td>
+            <td th:text="${pizza.description}"></td>
+            <td th:text="${pizza.price}"></td>
+            <td>
+                <form action="/order" method="post">
+                    <input type="hidden" name="pizzaId" th:value="${pizza.id}">
+                    <button type="submit">Order</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(pizzas)}">
+            <td colspan="3">No pizzas available yet</td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

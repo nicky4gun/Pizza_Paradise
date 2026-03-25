@@ -16,6 +16,5 @@ class ToppingsTests {
     void toppingHasAPrice(){
         Topping topping = new Topping("",10);
         assertEquals(10,topping.getPrice());
-
     }
 }
