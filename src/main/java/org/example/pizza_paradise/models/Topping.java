@@ -7,7 +7,7 @@ public class Topping {
 
     public Topping() {}
 
-    public Topping(String name,double price){
+    public Topping(String name, double price){
         this.name = name;
         this.price = price;
     }
@@ -16,6 +16,10 @@ public class Topping {
         this.id = id;
         this.name = name;
         this.price = price;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

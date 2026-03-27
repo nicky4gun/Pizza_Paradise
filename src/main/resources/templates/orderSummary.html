@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your order</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <h1>Your order</h1>
+    <p>Your order has been placed</p>
+
+    <p>Ordre ID: <span th:text="${order.id}">orderId</span></p>
+    <p>Dato: <span th:text="${order.orderDate}">orderDate</span></p>
+    <p>Pris: <span th:text="${order.totalPrice}">price</span></p>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Pizza</th>
+            <th>Quantity</th>
+            <th>Toppings</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="line : ${order.orderLines}">
+            <td th:text="${line.pizzaId}"></td>
+            <td th:text="${line.quantity}"></td>
+            <td>
+                <span th:if="${line.toppings == null || line.toppings.isEmpty()}">No extra toppings selected.</span>
+                <span th:unless="${line.toppings == null || line.toppings.isEmpty()}"
+                      th:text="${#strings.listJoin(line.toppings.![name], ', ')}"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

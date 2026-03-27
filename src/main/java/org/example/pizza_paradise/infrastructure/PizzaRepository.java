@@ -17,33 +17,30 @@ public class PizzaRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void save(Pizza pizza) {
-        String sql = "INSERT INTO pizzacustom (name, price, toppings) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, pizza.getName(), pizza.getPrice(), pizza.getToppings());
-    }
-
     public List<Pizza> findAllPizzas() {
-        String sql = "SELECT id, name, description, price FROM pizzas ORDER BY name";
+        String sql = "SELECT id, name, description, price, image_url FROM pizzas ORDER BY id";
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->
                         new Pizza(
                                 rs.getInt("id"),
                                 rs.getString("name"),
                                 rs.getString("description"),
-                                rs.getDouble("price")
+                                rs.getDouble("price"),
+                                rs.getString("image_url")
                         )
         );
     }
 
     public Optional<Pizza> findPizzaById(int id) {
-        String sql = "SELECT id, name, description, price FROM pizzas WHERE id = ?";
+        String sql = "SELECT id, name, description, price, image_url FROM pizzas WHERE id = ?";
 
         List<Pizza> pizzas = jdbcTemplate.query(sql, (rs, rowNum) ->
                 new Pizza(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("description"),
-                        rs.getDouble("price")
+                        rs.getDouble("price"),
+                        rs.getString("image_url")
                 ),
                 id
         );
@@ -52,7 +49,7 @@ public class PizzaRepository {
             return Optional.empty();
         }
 
-        return Optional.of(pizzas.get(0));
+        return Optional.of(pizzas.getFirst());
     }
 
     public List<Topping> findAllToppings() {
@@ -65,5 +62,21 @@ public class PizzaRepository {
                         rs.getDouble("price")
                 )
         );
+    }
+
+    public Optional<Topping> findToppingById(int id) {
+        String sql = "SELECT id, name, price FROM toppings WHERE id = ?";
+
+        List<Topping> toppings = jdbcTemplate.query(sql, (rs, rowNum) -> new Topping(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getDouble("price")
+        ), id);
+
+        if (toppings.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(toppings.getFirst());
     }
 }

@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
-    <h1>Pizza Menu</h1>
+    <h1>Pizza Paradise | Menu</h1>
+
+    <p id="links">
+        <a th:href="@{/pizzaparadise}">Forside</a> |
+        <a th:href="@{/pizzaparadise/order}">Bestil ny pizza</a>
+    </p>
 
     <table border="1">
         <thead>
         <tr>
+            <th>Pizza</th>
+            <th>Id</th>
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
@@ -17,15 +25,11 @@
         </thead>
         <tbody>
         <tr th:each="pizza : ${pizzas}">
+            <td><img th:src="@{'/pictures/' + ${pizza.imageUrl}}" alt="Pizza Image" width="100"></td>
+            <td th:text="${pizza.id}"></td>
             <td th:text="${pizza.name}"></td>
             <td th:text="${pizza.description}"></td>
-            <td th:text="${pizza.price}"></td>
-            <td>
-                <form action="/order" method="post">
-                    <input type="hidden" name="pizzaId" th:value="${pizza.id}">
-                    <button type="submit">Order</button>
-                </form>
-            </td>
+            <td th:text="${pizza.price} + ' kr'"></td>
         </tr>
         <tr th:if="${#lists.isEmpty(pizzas)}">
             <td colspan="3">No pizzas available yet</td>

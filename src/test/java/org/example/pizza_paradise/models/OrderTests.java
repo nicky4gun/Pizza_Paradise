@@ -3,6 +3,7 @@ package org.example.pizza_paradise.models;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,31 +17,31 @@ public class OrderTests {
     }
 
     @Test
-    public void testTheNumbersOfPizzas() {
+    public void testTheNumberOfOrderLines() {
+        Pizza pizza = new Pizza("hawaii", "Pizza with pineapple and ham", 70,"Hawaii.png");
+        Topping pineapple = new Topping(1, "Pineapple", 10.0);
+        Topping ham = new Topping(2, "Ham", 15.0);
+        OrderLine orderLine = new OrderLine(1, pizza.getId(), 1);
+        orderLine.setToppings(List.of(pineapple, ham));
+
         Order order = new Order(LocalDate.of(2026, 3, 25), 0.0);
-        Pizza pizza = new Pizza("hawaii", "Pizza with pineapple and ham", 70);
-        pizza.addToppings("Pineapple");
-        pizza.addToppings("Ham");
+        order.setOrderLines(List.of(orderLine));
 
-        order.addPizza(pizza);
-
-        List<Pizza> expected = List.of(pizza);
-
-        assertEquals(LocalDate.of(2026, 3, 25), order.getOrderDate());
-        assertEquals(expected, order.getPizza());
+        assertEquals(1, order.getOrderLines().size());
     }
 
+    // Fejler
     @Test
     public void TestTheTotalPrice() {
-        Order order = new Order();
-        Pizza pizza1 = new Pizza("hawaii", "Pizza with pineapple", 70);
-        Pizza pizza2 = new Pizza("Pepperroni","Pizza with pepperoni",80);
+        Pizza pizza1 = new Pizza(1, "Hawaii", "Pizza with pineapple", 70.0,"Hawaii.png");
+        Pizza pizza2 = new Pizza(2, "Pepperoni", "Pizza with pepperoni", 80.0,"Pepperoni.png" );
 
-        order.addPizza(pizza1);
-        order.addPizza(pizza2);
+        OrderLine line1 = new OrderLine(1, pizza1.getId(), 1);
+        OrderLine line2 = new OrderLine(2, pizza2.getId(), 1);
 
-        double total = order.getTotalPrice();
+        Order order = new Order(LocalDate.now(), 0.0);
+        order.setOrderLines(List.of(line1, line2));
 
-        assertEquals(150, total);
+        assertEquals(150.0, order.getTotalPrice());
     }
 }

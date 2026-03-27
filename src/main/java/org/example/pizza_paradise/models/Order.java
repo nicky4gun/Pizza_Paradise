@@ -7,15 +7,10 @@ import java.util.List;
 public class Order {
     private int id;
     private LocalDate orderDate;
+    private List<OrderLine> orderLines = new ArrayList<>();
     private double totalPrice;
-    private List<Pizza> pizzas = new ArrayList<>();
 
     public Order() {}
-
-    public Order(LocalDate orderDate, double totalPrice) {
-        this.orderDate = orderDate;
-        this.totalPrice = totalPrice;
-    }
 
     public Order(int id, LocalDate orderDate, double totalPrice) {
         this.id = id;
@@ -23,9 +18,18 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public int getId() {return id;}
+    public Order(LocalDate orderDate, double totalPrice) {
+        this.orderDate = orderDate;
+        this.totalPrice = totalPrice;
+    }
 
-    public void setId(int id) {this.id = id;}
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public LocalDate getOrderDate() {
         return orderDate;
@@ -35,18 +39,19 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public List<Pizza> getPizza() {
-        return pizzas;
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
     }
 
-    public void addPizza(Pizza pizza) {
-        pizzas.add(pizza);
+    public void setOrderLines(List<OrderLine> orderLines) {
+        this.orderLines = orderLines;
     }
+
     public double getTotalPrice() {
-        double total = 0;
-        for (Pizza pizza : pizzas) {
-            total += pizza.getPrice();
-        }
-        return total;
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

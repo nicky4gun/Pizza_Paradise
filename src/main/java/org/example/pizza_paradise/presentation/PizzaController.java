@@ -5,9 +5,10 @@ import org.example.pizza_paradise.services.PizzaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/pizzaparadise")
 public class PizzaController {
     private final PizzaService pizzaService;
 
@@ -15,13 +16,17 @@ public class PizzaController {
         this.pizzaService = pizzaService;
     }
 
-    @GetMapping("/pizza")
+    @GetMapping
     public String showPizzaMenu(Model model) {
-        model.addAttribute("pizza", new Pizza());
         model.addAttribute("pizzas", pizzaService.getAllPizzas());
-        return "pizzaView";
+        return "pizzaMenu";
     }
 
-    @PostMapping("/order")
-    public String orderPizza(Pizza pizza, Model model) {}
+    @GetMapping("/order")
+    public String showOrderForm(Model model) {
+        model.addAttribute("pizza", new Pizza());
+        model.addAttribute("pizzas", pizzaService.getAllPizzas());
+        model.addAttribute("toppings", pizzaService.findAllToppings());
+        return "orderForm";
+    }
 }

@@ -10,30 +10,19 @@ class PizzaTests {
 
     @Test
     void pizzaNameIsHawaii() {
-        Pizza pizza = new Pizza("Hawaii", "",0.0);
+        Pizza pizza = new Pizza("Hawaii", "",0.0,"Hawaii.png");
         assertEquals("Hawaii", pizza.getName());
     }
 
     @Test
     void pizzaDescriptionIsPineappleAndHam() {
-        Pizza pizza = new Pizza("", "Pizza has pineapple and ham",0.0);
+        Pizza pizza = new Pizza("", "Pizza has pineapple and ham",0.0,"Hawaii.png");
         assertEquals("Pizza has pineapple and ham",pizza.getDescription());
     }
 
     @Test
     void pizzaHasAPrice(){
-        Pizza pizza = new Pizza("", "", 70);
+        Pizza pizza = new Pizza("", "", 70,"Pizza.png");
         assertEquals(70, pizza.getPrice());
-    }
-
-    @Test
-    void pizzaHasToppings(){
-        Pizza pizza = new Pizza("", "", 0.0);
-
-        pizza.addToppings("Pineapple");
-        pizza.addToppings("Ham");
-
-        List<String> expected = List.of("Pineapple", "Ham");
-        assertEquals(expected, pizza.getToppings());
     }
 }

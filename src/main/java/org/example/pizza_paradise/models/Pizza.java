@@ -5,25 +5,28 @@ import java.util.List;
 
 public class Pizza {
     private int id;
+    private String imageUrl;
     private String name;
     private String description;
     private double price;
-    private List<String> toppings = new ArrayList<>();
 
     public Pizza() {}
 
-    public Pizza(String name, String description, double price) {
+    public Pizza(String name, String description, double price, String imageUrl) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.imageUrl = imageUrl;
     }
 
-    public Pizza(int id, String name, String description, double price) {
+    public Pizza(int id, String name, String description, double price, String imageUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.imageUrl = imageUrl;
     }
+
     public int getId() {
         return id;
     }
@@ -51,23 +54,12 @@ public class Pizza {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public void addToppings(String topping) {
-        toppings.add(topping); // Needs a throw
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public List<String> getToppings() {
-        return toppings;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
-    public boolean hasToppings(String topping) {
-        return toppings.contains(topping);
-    }
-    public void removeToppings(String topping) {
-        toppings.remove(topping);
-    }
-    public void ClearToppings() {
-        toppings.clear();
-    }
-
 }
 
